@@ -6,7 +6,7 @@ export default {
 
 
         mounted(ctx){
-            axios.get("http://backproject.std-263.ist.mospolytech.ru/api/auth/user", {headers:{ token : localStorage.getItem('token')}})
+            axios.get("http://localhost:5000/api/auth/user", {headers:{ token : localStorage.getItem('token')}})
                 .then(res =>{
                     ctx.commit("updateName", res.data.user)
                     ctx.dispatch("created")
@@ -30,7 +30,7 @@ export default {
 
         async login(ctx, user) {
             try {
-                const res = await axios.post("http://backproject.std-263.ist.mospolytech.ru/api/auth/login", user)
+                const res = await axios.post("http://localhost:5000/api/auth/login", user)
                 localStorage.setItem("token", res.data.token)
                 ctx.commit("clearError")
                 ctx.dispatch("mounted")
@@ -43,7 +43,7 @@ export default {
 
         async signUp(ctx, newUser){
             try{
-                await axios.post("http://backproject.std-263.ist.mospolytech.ru/api/auth/register", newUser)
+                await axios.post("http://localhost:5000/api/auth/register", newUser)
                 ctx.commit("clearError")
                 return true
             }catch (e) {

@@ -1,7 +1,12 @@
 <template>
     <main>
-        <div class="oneAlbum" v-for="album in allAlbums" :key="album._id">
-            <img :src="album.logo" alt="">
+        <div
+                @click="$router.push('/album/' + album._id)"
+                class="oneAlbum"
+                v-for="album in allAlbums"
+                :key="album._id"
+        >
+            <img v-bind:src="album.logo" alt="">
             <span class="name" href="">{{album.name}}</span>
             <span class="data">{{album.data.substring(0,10)}}</span>
         </div>
@@ -32,6 +37,7 @@ export default {
     .oneAlbum img {
         width: 200px;
         height: 240px;
+        object-fit: cover;
     }
     .oneAlbum{
         display: flex;

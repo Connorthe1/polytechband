@@ -88,8 +88,8 @@ router.post("/upload",
                 data: new Date().toISOString(),
                 name,
                 desc,
-                logo: "http://backproject.std-263.ist.mospolytech.ru/" + req.files["logo"][0].path,
-                songs: "http://backproject.std-263.ist.mospolytech.ru/" + req.files["songs"][0].path,
+                logo: "http://localhost:5000/" + req.files["logo"][0].path,
+                songs: "http://localhost:5000/" + req.files["songs"][0].path,
                 tags,
                 status : false
             })
@@ -111,12 +111,27 @@ router.get(
 
         Album.find({status: false}, (err, album) => {
             if (err) return console.log(err)
-                return res.status(200).json({
+            return res.status(200).json({
                 message: "album grabbed",
                 album: album
             })
         })
     })
+
+router.get(
+    "/albums/one",
+    async (req, res) => {
+        let idAlbum = req.headers.idalbum
+
+        Album.findOne({_id: idAlbum}, (err, album) => {
+            if (err) return console.log(err)
+            return res.status(200).json({
+                message: "album grabbed",
+                album: album
+            })
+        })
+    }
+)
 
 
 module.exports = router
